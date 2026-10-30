@@ -1,35 +1,78 @@
+
 using UnityEngine;
 
 public class BansheeAudioTrigger : MonoBehaviour
 {
     private AudioSource bansheeAudio;
-    private bool hasPlayed = false;
+
+    [Header("Danger Settings")]
+    public float dangerLevel = 0f;
+    public float dangerIncreaseSpeed = 20f;
+    public float dangerDecreaseSpeed = 15f;
+
+    private bool playerInside = false;
 
     private void Awake()
     {
         bansheeAudio = GetComponent<AudioSource>();
+
+        if (bansheeAudio != null)
+        {
+            bansheeAudio.loop = true;
+            bansheeAudio.volume = 0f;
+        }
+    }
+
+    private void Update()
+    {
+        if (playerInside)
+        {
+            dangerLevel += dangerIncreaseSpeed * Time.deltaTime;
+        }
+        else
+        {
+            dangerLevel -= dangerDecreaseSpeed * Time.deltaTime;
+        }
+
+        dangerLevel = Mathf.Clamp(dangerLevel, 0f, 100f);
+
+        if (bansheeAudio != null)
+        {
+            bansheeAudio.volume = dangerLevel / 100f;
+
+            if (dangerLevel > 0f && !bansheeAudio.isPlaying)
+            {
+                bansheeAudio.Play();
+            }
+
+            if (dangerLevel <= 0f && bansheeAudio.isPlaying)
+            {
+                bansheeAudio.Stop();
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (hasPlayed)
-            return;
-
-        // Works with a tagged player or an untagged FPS controller.
         if (!other.CompareTag("Player") &&
             !other.transform.root.CompareTag("Player") &&
             !other.GetComponentInParent<CharacterController>())
             return;
 
-        if (bansheeAudio != null && bansheeAudio.clip != null)
-        {
-            bansheeAudio.Play();
-            Debug.Log("You are leaving a safe zone");
-            hasPlayed = true;
-        }
-        else
-        {
-            Debug.LogWarning("Banshee AudioSource or Audio Clip is missing!");
-        }
+        playerInside = true;
+
+        Debug.Log("You are entering a dangerous area!");
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (!other.CompareTag("Player") &&
+            !other.transform.root.CompareTag("Player") &&
+            !other.GetComponentInParent<CharacterController>())
+            return;
+
+        playerInside = false;
+
+        Debug.Log("You are leaving a dangerous area!");
     }
 }
