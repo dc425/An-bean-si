@@ -3195,6 +3195,7 @@ GameObject:
   - component: {fileID: 386002137}
   - component: {fileID: 386002136}
   - component: {fileID: 386002135}
+  - component: {fileID: 386002138}
   - component: {fileID: 386002134}
   m_Layer: 0
   m_Name: VillageAltar
@@ -3218,7 +3219,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -3296,6 +3297,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &386002138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386002133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2e23f9fa1251ae4cabe46359fbc3fb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VillageAltar
+  requiredGold: 10
+  depositedGold: 0
+  interactionText: {fileID: 1004537175}
+  progressText: {fileID: 1286635055}
 --- !u!1 &408368907
 GameObject:
   m_ObjectHideFlags: 0
@@ -12078,7 +12095,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 313, y: 416}
+  m_AnchoredPosition: {x: 298, y: 416}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1286635055

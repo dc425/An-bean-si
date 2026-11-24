@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using UnityEngine.InputSystem;
 using TMPro;
 
 public class VillageAltar : MonoBehaviour
@@ -24,7 +25,8 @@ public class VillageAltar : MonoBehaviour
 
     void Update()
     {
-        if (playerNearby && Input.GetKeyDown(KeyCode.E) && !completed)
+        if (playerNearby && Keyboard.current != null &&
+            Keyboard.current.eKey.wasPressedThisFrame && !completed)
         {
             DepositGold();
         }
