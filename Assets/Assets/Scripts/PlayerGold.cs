@@ -4,7 +4,6 @@ using TMPro;
 public class PlayerGold : MonoBehaviour
 {
     public int gold = 0;
-
     public TMP_Text goldText;
 
     void Start()
@@ -19,6 +18,16 @@ public class PlayerGold : MonoBehaviour
         UpdateGoldUI();
 
         Debug.Log("Gold: " + gold);
+    }
+
+
+    public int DepositAllGold()
+    {
+        int amount = gold;
+        gold = 0;
+
+        UpdateGoldUI();
+        return amount;
     }
 
     void UpdateGoldUI()
